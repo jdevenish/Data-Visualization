@@ -10,7 +10,9 @@ const RawDataSchema = new mongoose.Schema({
     },
     screenWidth: Number,
     geolocation: {
-        zip: Number,
+        city: String,
+        state: String,
+        country: String,
         date: Date
     },
     deviceType: String

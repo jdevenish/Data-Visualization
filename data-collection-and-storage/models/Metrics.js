@@ -8,9 +8,12 @@ const MetricSchema = new mongoose.Schema({
         high: Number,
         low: Number,
         avg: Number,
-        data:{
-            time: [ Number ]
-        }
+        data:[
+            {
+                loadTime: Number,
+                date: Date
+            }
+        ]
     },
     browser: {
         chrome: Number,
@@ -26,8 +29,10 @@ const MetricSchema = new mongoose.Schema({
     },
     location: [
         {
-            lat: Number,
-            long: Number
+            city: String,
+            state: String,
+            country: String,
+            date: Date
         }
     ]
 });

@@ -1,6 +1,5 @@
 const Metric = require("../models/Metrics");
 
-
 const getForDomain = (req, res) => {
 
 };

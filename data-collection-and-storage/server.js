@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const parser = require("body-parser");
-// const cors = require("cors");
+const cors = require("cors");
 const PORT = process.env.PORT || 8080;
 
 
 app.use(parser.json());
-// app.use(cors());
+app.use(cors());
 
 // Default Route
 app.get("/", (req, res) => {

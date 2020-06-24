@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
     })
 });
 
-const rawDataRoutes = require("./routes/rawdata");
+const rawDataRoutes = require("./routes/rawData");
 app.use("/data", rawDataRoutes);
 
 const metricRoutes = require("./routes/metrics");

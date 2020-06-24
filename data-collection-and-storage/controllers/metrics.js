@@ -6,7 +6,8 @@ const getForDomain = (req, res) => {
 };
 
 const create = (req, res) => {
-    Metric.create().then(resp => {
+    const metricObj = new Metric;
+    Metric.create(metricObj).then(resp => {
         res.status(200)
             .json({
                 status: 200,

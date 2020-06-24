@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const rawdataController = require("../controllers/rawdataController");
+const rawdataController = require("../controllers/rawData");
 
 
 router.get('/', rawdataController.getData);

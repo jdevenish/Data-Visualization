@@ -4,6 +4,7 @@ const mongoose = require('../db/connection');
 
 // schema
 const RawDataSchema = new mongoose.Schema({
+    siteId: String,
     loadTime: {
         time: Number,
         date: Date

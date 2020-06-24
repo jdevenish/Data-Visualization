@@ -11,7 +11,7 @@ const create = (req, res) => {
         res.status(200)
             .json({
                 status: 200,
-                metricObj: resp
+                id: resp._id
             })
     }).catch(err => {
         res.status(200)

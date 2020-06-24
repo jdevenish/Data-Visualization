@@ -10,10 +10,10 @@ const addData = (req, res) => {
 
     // Create raw data entry
     RawData.create(req.body).then(() => {
-        Metric.findOne({"_id": req.param('id') }).then(metric => {
+        Metric.findOne({"_id": req.body.siteId }).then(metric => {
 
             // Fetch all raw data and return for use with charts/graphs
-            RawData.fetch().then(data => {
+            RawData.find({"siteId": req.body.siteId}).then(data => {
                 data.forEach((site) => {
                     // Browser
                     switch (site.deviceType) {

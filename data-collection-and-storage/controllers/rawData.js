@@ -1,5 +1,4 @@
 const RawData = require("../models/RawData");
-const Metric = require("../models/Metrics");
 
 const addData = (req, res) => {
     // Create raw data entry
@@ -35,7 +34,15 @@ const getData = (req, res) => {
     });
 };
 
+const clearData = (req, res) => {
+    RawData.find().then(allData => {
+        res.status(200)
+            .json(allData)
+    })
+};
+
 module.exports = {
     addData,
-    getData
+    getData,
+    clearData
 };

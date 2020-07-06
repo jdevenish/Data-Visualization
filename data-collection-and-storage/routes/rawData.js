@@ -7,4 +7,6 @@ router.get('/', rawdataController.getData);
 
 router.post('/create', rawdataController.addData);
 
+router.delete('/clearData', rawdataController.clearData);
+
 module.exports = router;

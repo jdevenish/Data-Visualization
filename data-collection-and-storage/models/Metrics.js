@@ -5,27 +5,27 @@ const mongoose = require('../db/connection');
 // schema
 const MetricSchema = new mongoose.Schema({
     loadTimes:{
-        high: Number,
-        low: Number,
-        avg: Number,
+        high: { type: Number, default: 0 },
+        low: { type: Number, default: 999999 },
+        avg: { type: Number, default: 0 },
         data:[
             {
-                loadTime: Number,
+                time: Number,
                 date: Date
             }
         ]
     },
     browser: {
-        chrome: Number,
-        firefox: Number,
-        safari: Number,
-        ie: Number,
-        other: Number,
+        chrome: { type: Number, default: 0 },
+        firefox: { type: Number, default: 0 },
+        safari: { type: Number, default: 0 },
+        ie: { type: Number, default: 0 },
+        other: { type: Number, default: 0 }
     },
     deviceType: {
-        mobile: Number,
-        tablet: Number,
-        desktop: Number
+        mobile: { type: Number, default: 0 },
+        tablet: { type: Number, default: 0 },
+        desktop: { type: Number, default: 0 }
     },
     location: [
         {

@@ -10,6 +10,7 @@ const MetricSchema = new mongoose.Schema({
         avg: { type: Number, default: 0 },
         data:[
             {
+                _id: false,
                 time: Number,
                 date: Date
             }
@@ -29,6 +30,7 @@ const MetricSchema = new mongoose.Schema({
     },
     location: [
         {
+            _id: false,
             city: String,
             state: String,
             country: String,

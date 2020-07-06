@@ -46,10 +46,7 @@ const addData = (req, res) => {
 
                 // Load Times
                 // Add sort by date
-                metricObj.loadTimes.data.push({
-                    time: dataObj.loadTime.time,
-                    date: dataObj.loadTime.date
-                });
+                metricObj.loadTimes.data.push(dataObj.loadTime);
                 metricObj.loadTimes.avg += dataObj.loadTime.time;
 
                 if(metricObj.loadTimes.low > dataObj.loadTime.time){
@@ -64,6 +61,8 @@ const addData = (req, res) => {
                 // Define default sort and do that here. (date, city, etc..)
                 metricObj.location.push(dataObj.geolocation);
             });
+
+            metricObj.loadTimes.avg = metricObj.loadTimes.avg / allData.length;
 
             res.status(200)
                 .json(metricObj)

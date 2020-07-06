@@ -46,7 +46,19 @@ const addData = (req, res) => {
 
                 // Load Times
                 // Add sort by date
-                metricObj.loadTimes.data.push(dataObj.loadTime);
+                metricObj.loadTimes.data.push({
+                    time: dataObj.loadTime.time,
+                    date: dataObj.loadTime.date
+                });
+                metricObj.loadTimes.avg += dataObj.loadTime.time;
+
+                if(metricObj.loadTimes.low > dataObj.loadTime.time){
+                    metricObj.loadTimes.low = dataObj.loadTime.time;
+                }
+
+                if(metricObj.loadTimes.high < dataObj.loadTime.time) {
+                    metricObj.loadTimes.high = dataObj.loadTime.time
+                }
 
                 // Locale
                 // Define default sort and do that here. (date, city, etc..)

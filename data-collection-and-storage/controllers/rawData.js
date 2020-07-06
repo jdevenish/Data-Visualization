@@ -36,8 +36,18 @@ const getData = (req, res) => {
 
 const clearData = (req, res) => {
     RawData.find().then(allData => {
+        allData.forEach(dataObj => {
+            RawData.deleteOne({_id: dataObj._id}).catch(error => {
+                console.error(error);
+            })
+        });
         res.status(200)
-            .json(allData)
+            .json({
+                status: 200,
+                message: "All data successfully deleted."
+            })
+    }).catch(error => {
+        console.error(error)
     })
 };
 

@@ -33,9 +33,10 @@ export default function BrowserType({ browserTypeData }) {
 
     arcs.append("text")
         .attr("transform", function(d,i) {
-            return "translate(" + arc.centroid(browserKeys[i]) + ")";
+            return "translate(" + arc.centroid(browserKeys) + ")";
         })
-        .text(browserKeys)
+        .text(function(d,i) { return browserKeys[i]});
+
 
     svg.append("g")
         .attr("transform", "translate(" + (width / 2 - 110) + "," + 25 + ")")

@@ -13,37 +13,17 @@ export default function BrowserType({ browserTypeData }) {
 
     let svg = d3.select("#browser-type-pie");
 
-
-
-    // if(svg.attr.hasOwnProperty("width")){
-    //     let width = 300;
-    //     let height = 400;
-    //     let radius = Math.min(width, height) / 2;
-    //     let g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    //
-    //     let color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
-    //
-    //     let pie = d3.pie();
-    //
-    //     let arc = d3.arc().innerRadius(0).outerRadius(radius);
-    //
-    //     let arcs = g.selectAll("arc").data(pie(browserValues)).enter().append("g").attr("class", "arc");
-    //
-    //     arcs.append("path").attr("fill", function(d,i) {
-    //         return color(i)
-    //     }).attr("d", arc);
-    // }
-
-    let width = 300;
-    let height = 200;
+    let width = 500;
+    let height = 400;
     let radius = Math.min(width, height) / 2;
-    let g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    let g = svg.append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 
     let color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
 
     let pie = d3.pie();
 
-    let arc = d3.arc().innerRadius(0).outerRadius(radius);
+    let arc = d3.arc().innerRadius(0).outerRadius(radius-50);
 
     let arcs = g.selectAll("arc").data(pie(browserValues)).enter().append("g").attr("class", "arc");
 
@@ -51,13 +31,24 @@ export default function BrowserType({ browserTypeData }) {
         return color(i)
     }).attr("d", arc);
 
-    console.log(svg);
+    arcs.append("text")
+        .attr("transform", function(d,i) {
+            return "translate(" + arc.centroid(browserKeys[i]) + ")";
+        })
+        .text(browserKeys)
+
+    svg.append("g")
+        .attr("transform", "translate(" + (width / 2 - 110) + "," + 25 + ")")
+        .append("text")
+        .text("Browser use statistics")
+        .attr("class", "browser-pie-label");
+
 
 
     return (
         <div className="App">
             <h1 id="browser-type">Browser Type Graph</h1>
-            <svg id="browser-type-pie" height="200" width="400">
+            <svg id="browser-type-pie" height={height} width={width}>
 
             </svg>
         </div>

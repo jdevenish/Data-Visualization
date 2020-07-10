@@ -54,7 +54,6 @@ export default function BrowserType({ browserTypeData, logged }) {
         .text("Browser use statistics")
         .attr("class", "browser-pie-label");
 
-    console.log(browserTypeData);
     console.log(logged);
 
 
@@ -66,7 +65,7 @@ export default function BrowserType({ browserTypeData, logged }) {
 
                 </svg>
                 <div>
-                    
+                    <p>Chrome: {logged ? browserTypeData['chrome'] : 'loading'}</p>
                 </div>
             </div>
 

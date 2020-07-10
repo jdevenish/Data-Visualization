@@ -66,6 +66,8 @@ export default function BrowserType({ browserTypeData, logged }) {
                 </svg>
                 <div>
                     <p>Chrome: {logged ? browserTypeData['chrome'] : 'loading'}</p>
+                    <p>Firefox: {logged ? browserTypeData['firefox'] : 'loading'}</p>
+                    <p>Safari: {logged ? browserTypeData['safari'] : 'loading'}</p>
                 </div>
             </div>
 

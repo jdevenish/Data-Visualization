@@ -49,7 +49,7 @@ function App() {
         <BrowserType browserTypeData={graphData.browser}/>
       </div>
       <div>
-        <DeviceType deviceTypeData={graphData.deviceType}/>
+          {logged ? <DeviceType deviceTypeData={graphData.deviceType} logged={logged}/> : ""}
       </div>
       <div>
         <LoadTimes loadTimeData={graphData.loadTimes}/>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as d3 from "d3";
+import '../scss/BrowserType.scss'
 
 export default function BrowserType({ browserTypeData, logged }) {
     // const [browserKeys, setBrowserkeys] = useState([]);
@@ -65,9 +66,9 @@ export default function BrowserType({ browserTypeData, logged }) {
 
                 </svg>
                 <div>
-                    <p>Chrome: {logged ? browserTypeData['chrome'] : 'loading'}</p>
-                    <p>Firefox: {logged ? browserTypeData['firefox'] : 'loading'}</p>
-                    <p>Safari: {logged ? browserTypeData['safari'] : 'loading'}</p>
+                    <p>Chrome: <span className="chrome-label">{logged ? browserTypeData['chrome'] : 'loading'}</span></p>
+                    <p>Firefox: <span className="firefox-label">{logged ? browserTypeData['firefox'] : 'loading'}</span></p>
+                    <p>Safari: <span className="safari-label">{logged ? browserTypeData['safari'] : 'loading'}</span></p>
                 </div>
             </div>
 

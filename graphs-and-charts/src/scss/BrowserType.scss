@@ -1,0 +1,26 @@
+@import "./config";
+
+.chrome-label {
+  font-weight: bold;
+  color: $chrome;
+}
+
+.firefox-label {
+  font-weight: bold;
+  color: $firefox;
+}
+
+.safari-label {
+  font-weight: bold;
+  color: $safari
+}
+
+.ie-label {
+  font-weight: bold;
+  color: $ie;
+}
+
+.other-label {
+  font-weight: bold;
+  color: $other;
+}

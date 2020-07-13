@@ -1,4 +1,6 @@
 import React from "react";
+import '../scss/LoadTime.scss'
+
 
 export default function LoadTimes({ loadTimeData }) {
 

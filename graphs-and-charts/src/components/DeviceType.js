@@ -1,4 +1,6 @@
 import React from "react";
+import '../scss/DeviceType.scss'
+
 
 export default function DeviceType({ deviceTypeData }) {
 

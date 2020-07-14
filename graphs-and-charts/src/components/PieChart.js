@@ -2,12 +2,27 @@ import React from "react";
 import * as d3 from "d3";
 import '../scss/BrowserType.scss'
 
-export default function PieChart({ id, keys, values, totalCount, colors, title, height = 400, width = 500 }) {
+export default function PieChart({ id, graphData, colorObj, title, height = 400, width = 500 }) {
+    let keys = [];
+    let values = [];
+    let colors = [];
+    let totalCount = 0;
+
+    // Set incoming data to appropriate values
+    for(let key in graphData) {
+        if(graphData.hasOwnProperty(key) && graphData[key] > 0){
+            keys.push(key);
+            values.push(graphData[key]);
+            colors.push(colorObj[key]);
+            totalCount += graphData[key];
+        }
+    }
+
 
     // Build dynamic label values
     const labels = keys.map((name, i) => {
         return(
-            <p className='capitalize label'>{name}: <span className={`${name} label`}>
+            <p className='capitalize label' key = {name}>{name}: <span className="label" style={{color: colors[i]}} >
                 {`${((values[i] / totalCount)*100).toFixed(2)}%`}
             </span></p>
         )
@@ -51,7 +66,7 @@ export default function PieChart({ id, keys, values, totalCount, colors, title, 
     return (
         <div className="pie-graph-container">
             <div className="pie-graph-content">
-                <svg id="browser-type-pie" height={height} width={width}>
+                <svg id={id.substr(1)} height={height} width={width}>
 
                 </svg>
                 <div className="legend">

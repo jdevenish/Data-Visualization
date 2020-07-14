@@ -7,13 +7,24 @@ export default function BrowserType({ browserTypeData, logged }) {
     // const [browserData, setBrowserData] = useState(browserTypeData)
     let browserKeys = [];
     let browserValues = [];
+    let browserColors = [];
+    const graphColors = {
+        chrome: '#D2335C',
+        firefox: '#FF9948',
+        safari: '#0082d5',
+        ie: '#54657E',
+        other: '#A93ABA'
+    };
+    let totalCount = 0;
+
 
     for(let key in browserTypeData) {
-        if(browserTypeData[key] > 0){
+        if(browserTypeData.hasOwnProperty(key) && browserTypeData[key] > 0){
             browserKeys.push(key);
             browserValues.push(browserTypeData[key]);
+            browserColors.push(graphColors[key]);
+            totalCount += browserTypeData[key];
         }
-
     }
 
     let svg = d3.select("#browser-type-pie");
@@ -22,10 +33,10 @@ export default function BrowserType({ browserTypeData, logged }) {
     let height = 400;
     let radius = Math.min(width, height) / 2;
     let g = svg.append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // Define colors
-    let color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
+    let color = d3.scaleOrdinal(browserColors);
 
     // Define graph type
     let pie = d3.pie();
@@ -66,9 +77,9 @@ export default function BrowserType({ browserTypeData, logged }) {
 
                 </svg>
                 <div>
-                    <p>Chrome: <span className="chrome-label">{logged ? browserTypeData['chrome'] : 'loading'}</span></p>
-                    <p>Firefox: <span className="firefox-label">{logged ? browserTypeData['firefox'] : 'loading'}</span></p>
-                    <p>Safari: <span className="safari-label">{logged ? browserTypeData['safari'] : 'loading'}</span></p>
+                    <p>Chrome: <span className="chrome label">{logged ? browserTypeData['chrome'] : 'loading'}</span></p>
+                    <p>Firefox: <span className="firefox label">{logged ? browserTypeData['firefox'] : 'loading'}</span></p>
+                    <p>Safari: <span className="safari label">{logged ? browserTypeData['safari'] : 'loading'}</span></p>
                 </div>
             </div>
 

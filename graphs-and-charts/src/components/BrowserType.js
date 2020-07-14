@@ -18,6 +18,7 @@ export default function BrowserType({ browserTypeData, logged }) {
     let totalCount = 0;
 
 
+    // Set incoming data to appropriate values
     for(let key in browserTypeData) {
         if(browserTypeData.hasOwnProperty(key) && browserTypeData[key] > 0){
             browserKeys.push(key);
@@ -27,6 +28,16 @@ export default function BrowserType({ browserTypeData, logged }) {
         }
     }
 
+    // Build dynamic label values
+    const labels = browserKeys.map(browserName => {
+        return(
+            <p className='capitalize label'>{browserName}: <span className={`${browserName} label`}>
+                {logged ? `${((browserTypeData[browserName] / totalCount)*100).toFixed(2)}%` : "loading"}
+            </span></p>
+        )
+    });
+
+    // Select browser-type-pie chart SVG for manipulation
     let svg = d3.select("#browser-type-pie");
 
     let width = 500;
@@ -52,13 +63,6 @@ export default function BrowserType({ browserTypeData, logged }) {
         return color(i)
     }).attr("d", arc);
 
-    // Add Labels to sections of pie chart
-    // arcs.append("text")
-    //     .attr("transform", function(d) {
-    //         return "translate(" + arc.centroid(d) + ")";
-    //     })
-    //     .text(function(d,i) { return browserKeys[i]});
-
     // Add Title to the graph
     svg.append("g")
         .attr("transform", "translate(" + (width / 2 - 110) + "," + 25 + ")")
@@ -66,23 +70,19 @@ export default function BrowserType({ browserTypeData, logged }) {
         .text("Browser use statistics")
         .attr("class", "browser-pie-label");
 
-    console.log(logged);
-
-
     return (
         <div className="App">
             <h1 id="browser-type">Browser Type Graph</h1>
-            <div>
-                <svg id="browser-type-pie" height={height} width={width}>
+            <div className="pie-graph-container">
+                <div className="pie-graph-content">
+                    <svg id="browser-type-pie" height={height} width={width}>
 
-                </svg>
-                <div>
-                    <p>Chrome: <span className="chrome label">{logged ? browserTypeData['chrome'] : 'loading'}</span></p>
-                    <p>Firefox: <span className="firefox label">{logged ? browserTypeData['firefox'] : 'loading'}</span></p>
-                    <p>Safari: <span className="safari label">{logged ? browserTypeData['safari'] : 'loading'}</span></p>
+                    </svg>
+                    <div className="legend">
+                        {labels}
+                    </div>
                 </div>
             </div>
-
         </div>
     );
 }

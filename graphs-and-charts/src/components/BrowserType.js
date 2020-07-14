@@ -61,7 +61,11 @@ export default function BrowserType({ browserTypeData, logged }) {
     // Draw and fill color of pie graph
     arcs.append("path").attr("fill", function(d,i) {
         return color(i)
-    }).attr("d", arc);
+    }).attr("d", arc)
+        .append("title")
+        .text(function(d,i) {
+            return browserValues[i]
+        });
 
     // Add Title to the graph
     svg.append("g")

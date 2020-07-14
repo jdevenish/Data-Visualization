@@ -12,7 +12,7 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [graphData, setGraphData] = useState({});
 
-  console.log(`logged = ${logged}`)
+  // console.log(`logged = ${logged}`);
 
   useEffect( () => {
     // Create visitor object with screen width and load time populated
@@ -40,7 +40,7 @@ function App() {
     }).catch(error => { // end getLocationData
       console.error(error);
     })
-  }, [])
+  }, []);
 
   return (
     <div className="App">
@@ -48,7 +48,7 @@ function App() {
       {logged ? <h2>Your information has been logged!</h2> :
           <h2>Your information is being collected!</h2>}
       <div>
-        <BrowserType browserTypeData={graphData.browser} logged={logged}/>
+        <BrowserType browserTypeData={graphData.browser} />
       </div>
       <div>
           <DeviceType deviceTypeData={graphData.deviceType} logged={logged}/>

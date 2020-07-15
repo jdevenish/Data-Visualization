@@ -1,0 +1,27 @@
+.label {
+  font-weight: bold;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.pie-graph-container {
+  width: 50vw;
+  margin: 0 auto;
+}
+
+.pie-graph-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 2px solid black;
+}
+
+.legend {
+  text-align: left;
+  align-self: center;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 10px;
+}

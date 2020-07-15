@@ -1,6 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
-import '../scss/BrowserType.scss'
+import '../scss/PieChart.scss'
 
 export default function PieChart({ id, graphData, colorObj, title, height = 400, width = 500 }) {
     let keys = [];

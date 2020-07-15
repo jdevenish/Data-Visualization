@@ -8,7 +8,7 @@ export default function PieChart({ id, graphData, colorObj, title, height = 400,
     let colors = [];
     let totalCount = 0;
 
-    // Set incoming data to appropriate values
+    // Set incoming data to appropriate variables
     for(let key in graphData) {
         if(graphData.hasOwnProperty(key) && graphData[key] > 0){
             keys.push(key);
@@ -47,7 +47,7 @@ export default function PieChart({ id, graphData, colorObj, title, height = 400,
     // Provide data for pie chart
     let arcs = g.selectAll("arc").data(pie(values)).enter().append("g").attr("class", "arc");
 
-    // Draw and fill color of pie graph
+    // Draw and fill color of pie graph & add hover over values
     arcs.append("path").attr("fill", function(d,i) {
         return color(i)
     }).attr("d", arc)

@@ -1,8 +1,9 @@
 
 export const visitorDataObj = {
     loadTime: {
-        time: (window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart),
-        date: ""
+        time: 0,
+        date: "",
+        type: ""
     },
     screenWidth: window.screen.width,
     geolocation: "",
@@ -29,12 +30,23 @@ export const browserDetection = async () => {
 export const determineLoadTime = async () => {
     let loadTime = {
         time: 0,
-        date: new Date()
-    }
+        date: new Date(),
+        type: ""
+    };
 
-    let perfEntries = performance.getEntriesByType("navigation");
-    console.log(perfEntries)
+    let perfEntries = performance.getEntriesByType("navigation")[0];
+
+    // domContentLoadedEventEnd : representing the time value equal to the time
+    // immediately after the current document's DOMContentLoaded event completes.
     let domContentLoadedEventEnd = perfEntries.domContentLoadedEventEnd;
-    let navigationStart = perfEntries.domContentLoadedEventStart;
-    // console.log(domContentLoadedEventEnd-navigationStart)
-}
+
+    // requestStart : representing the time immediately before the user agent
+    // starts requesting the resource from the server, or from relevant
+    // application caches or from local resources.
+    let navigationStart = perfEntries.requestStart;
+
+    loadTime.time = (domContentLoadedEventEnd - navigationStart);
+    loadTime.type = perfEntries.type;
+
+    return loadTime
+};

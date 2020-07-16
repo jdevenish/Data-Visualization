@@ -15,7 +15,6 @@ function App() {
   useEffect( () => {
     // Create visitor object with screen width and load time populated
     let visitorData = visitorDataObj;
-    console.log(visitorData)
 
     // Populate geolocation data
     getLocationData().then(locale => {
@@ -25,16 +24,21 @@ function App() {
       browserDetection().then(browser => {
         visitorData.deviceType = browser;
 
-        determineLoadTime()
-        // console.log(visitorData)
-        // Send complete visitor data to server
-        // sendMetrics(visitorData).then(metrics => {
-        //   setGraphData(metrics)
-        //   setLogged(true)
-        //
-        // }).catch(error => { // end sendMetrics
-        //   console.error(error);
-        // })
+        // Calculate site load time.
+        determineLoadTime().then(loadTime => {
+            visitorData.loadTime = loadTime;
+
+            // Send complete visitor data to server
+            sendMetrics(visitorData).then(metrics => {
+              setGraphData(metrics)
+              setLogged(true)
+
+            }).catch(error => { // end sendMetrics
+              console.error(error);
+            })
+        }).catch(error => {
+            console.log(error);
+        })
       }).catch(error => { // end browserDetection
         console.error(error);
       })

@@ -59,13 +59,21 @@ const addData = (req, res) => {
 
             res.status(200)
                 .json(metricObj)
+        }).catch(err => {
+            res.status(200)
+                .json({
+                    status: 500,
+                    error: err,
+                    message: "Error while parsing rawData for return"
+                })
         })
 
     }).catch(err => {
         res.status(200)
             .json({
                 status: 500,
-                error: err
+                error: err,
+                message: "Error while creating rawData document"
             })
     })
 };

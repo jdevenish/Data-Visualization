@@ -6,7 +6,8 @@ const mongoose = require('../db/connection');
 const RawDataSchema = new mongoose.Schema({
     loadTime: {
         time: Number,
-        date: Date
+        date: Date,
+        type: String
     },
     screenWidth: Number,
     geolocation: {

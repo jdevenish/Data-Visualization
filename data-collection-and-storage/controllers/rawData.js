@@ -7,13 +7,6 @@ const addData = (req, res) => {
         RawData.find().then(allData => {
             let metricObj = new MetricSchema;
 
-
-            metricObj.browser.chrome = 0;
-            metricObj.browser.firefox = 0;
-            metricObj.browser.safari = 0;
-            metricObj.browser.ie = 0;
-            metricObj.browser.other = 0;
-
             allData.forEach(dataObj => {
                 // Browser
                 switch (dataObj.deviceType) {

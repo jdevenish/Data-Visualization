@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import {browserDetection, visitorDataObj} from "./services/function-helper-metric-collection";
+import {browserDetection, determineLoadTime, visitorDataObj} from "./services/function-helper-metric-collection";
 import {getLocationData} from "./services/api-helper-geoLocation";
 import {sendMetrics} from "./services/api-helper-send_receive_metrics";
 import BrowserType from "./components/BrowserType";
@@ -12,11 +12,10 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [graphData, setGraphData] = useState({});
 
-  // console.log(`logged = ${logged}`);
-
   useEffect( () => {
     // Create visitor object with screen width and load time populated
     let visitorData = visitorDataObj;
+    console.log(visitorData)
 
     // Populate geolocation data
     getLocationData().then(locale => {
@@ -26,14 +25,16 @@ function App() {
       browserDetection().then(browser => {
         visitorData.deviceType = browser;
 
+        determineLoadTime()
+        // console.log(visitorData)
         // Send complete visitor data to server
-        sendMetrics(visitorData).then(metrics => {
-          setGraphData(metrics)
-          setLogged(true)
-
-        }).catch(error => { // end sendMetrics
-          console.error(error);
-        })
+        // sendMetrics(visitorData).then(metrics => {
+        //   setGraphData(metrics)
+        //   setLogged(true)
+        //
+        // }).catch(error => { // end sendMetrics
+        //   console.error(error);
+        // })
       }).catch(error => { // end browserDetection
         console.error(error);
       })

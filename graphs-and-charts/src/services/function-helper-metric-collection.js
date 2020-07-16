@@ -1,13 +1,13 @@
 
 export const visitorDataObj = {
     loadTime: {
-        time: window.performance.timing.domContentLoadedEventEnd-window.performance.timing.navigationStart,
-        date: Date.now()
+        time: (window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart),
+        date: ""
     },
     screenWidth: window.screen.width,
     geolocation: "",
     deviceType: ""
-}
+};
 
 export const browserDetection = async () => {
     let deviceType = "";
@@ -25,3 +25,16 @@ export const browserDetection = async () => {
 
     return deviceType;
 };
+
+export const determineLoadTime = async () => {
+    let loadTime = {
+        time: 0,
+        date: new Date()
+    }
+
+    let perfEntries = performance.getEntriesByType("navigation");
+    console.log(perfEntries)
+    let domContentLoadedEventEnd = perfEntries.domContentLoadedEventEnd;
+    let navigationStart = perfEntries.domContentLoadedEventStart;
+    // console.log(domContentLoadedEventEnd-navigationStart)
+}

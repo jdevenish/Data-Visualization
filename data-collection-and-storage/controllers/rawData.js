@@ -2,6 +2,8 @@ const RawData = require("../models/RawData");
 const MetricSchema = require("../models/Metrics");
 
 const addData = (req, res) => {
+    console.log("incoming post body:")
+    console.log(req.body);
     // Create raw data entry
     RawData.create(req.body).then(() => {
         RawData.find().then(allData => {

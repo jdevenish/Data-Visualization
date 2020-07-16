@@ -27,10 +27,11 @@ function App() {
         // Calculate site load time.
         determineLoadTime().then(loadTime => {
             visitorData.loadTime = loadTime;
+            console.log(`typeof time = ${typeof loadTime}`)
 
             // Send complete visitor data to server
             sendMetrics(visitorData).then(metrics => {
-              setGraphData(metrics)
+              setGraphData(metrics);
               setLogged(true)
 
             }).catch(error => { // end sendMetrics

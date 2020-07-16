@@ -2,7 +2,7 @@
 export const visitorDataObj = {
     loadTime: {
         time: 0,
-        date: "",
+        date: {},
         type: ""
     },
     screenWidth: window.screen.width,
@@ -28,12 +28,6 @@ export const browserDetection = async () => {
 };
 
 export const determineLoadTime = async () => {
-    let loadTime = {
-        time: 0,
-        date: new Date(),
-        type: ""
-    };
-
     let perfEntries = performance.getEntriesByType("navigation")[0];
 
     // domContentLoadedEventEnd : representing the time value equal to the time
@@ -45,8 +39,9 @@ export const determineLoadTime = async () => {
     // application caches or from local resources.
     let navigationStart = perfEntries.requestStart;
 
-    loadTime.time = (domContentLoadedEventEnd - navigationStart);
-    loadTime.type = perfEntries.type;
-
-    return loadTime
+    return {
+        time: (domContentLoadedEventEnd - navigationStart),
+        date: new Date(),
+        type: perfEntries.type
+    }
 };

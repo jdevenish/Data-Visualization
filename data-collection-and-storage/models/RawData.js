@@ -5,7 +5,7 @@ const RawDataSchema = new mongoose.Schema({
     loadTime: {
         time: Number,
         date: Date,
-        type: String
+        requestType: String
     },
     screenWidth: Number,
     geolocation: {

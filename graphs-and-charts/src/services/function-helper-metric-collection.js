@@ -2,7 +2,7 @@
 export const visitorDataObj = {
     loadTime: {
         time: 0,
-        date: {},
+        date: "",
         type: ""
     },
     screenWidth: window.screen.width,
@@ -41,7 +41,7 @@ export const determineLoadTime = async () => {
 
     return {
         time: (domContentLoadedEventEnd - navigationStart),
-        date: new Date(),
-        type: perfEntries.type
+        date: Date.now(),
+        requestType: perfEntries.type
     }
 };

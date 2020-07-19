@@ -1,3 +1,7 @@
+/*
+    Mobile Styling
+ */
+
 .label {
   font-weight: bold;
 }
@@ -7,21 +11,70 @@
 }
 
 .pie-graph-container {
-  width: 50vw;
+  width: 95vw;
   margin: 0 auto;
+
+  .pie-graph-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+
+    .pie-graph-svg-container {
+
+      .pie-graph-svg {
+        width: 350px;
+        height: 450px;
+      }
+    }
+
+    .legend {
+      text-align: left;
+      align-self: center;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+  }
 }
 
-.pie-graph-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border: 2px solid black;
+
+
+
+/*
+    Tablet Styling
+ */
+@media (min-width: 768px) {
+
+  .pie-graph-container {
+    width: 75vw;
+
+    .pie-graph-content {
+      flex-direction: column;
+
+    }
+  }
 }
 
-.legend {
-  text-align: left;
-  align-self: center;
-  padding: 5px;
-  border: 2px solid black;
-  border-radius: 10px;
+
+/*
+    Desktop Styling
+ */
+@media (min-width: 1024px) {
+
+  .pie-graph-container {
+    width: 50vw;
+
+    .pie-graph-content {
+      flex-direction: row;
+      justify-content: center;
+
+      .legend {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+
 }

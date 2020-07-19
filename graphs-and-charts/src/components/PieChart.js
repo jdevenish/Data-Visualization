@@ -2,11 +2,37 @@ import React from "react";
 import * as d3 from "d3";
 import '../scss/PieChart.scss'
 
-export default function PieChart({ id, graphData, colorObj, title, height = 400, width = 500 }) {
+function calcSvgDimensions(width) {
+    let tablet = 768;
+    let desktop = 1024;
+
+    let dimensions = {
+        width: 0,
+        height: 0
+    };
+
+    if( width < tablet ) {
+        dimensions.width = 375;
+        dimensions.height = 380;
+
+    } else if( tablet <= width && width < desktop ) {
+        dimensions.width = 400;
+        dimensions.height = 450;
+
+    } else if( width >= desktop ) {
+        dimensions.width = 500;
+        dimensions.height = 550;
+    }
+
+    return dimensions
+}
+
+export default function PieChart({ id, graphData, colorObj, title}) {
     let keys = [];
     let values = [];
     let colors = [];
     let totalCount = 0;
+    let dimensions = calcSvgDimensions(window.screen.availWidth);
 
     // Set incoming data to appropriate variables
     for(let key in graphData) {
@@ -31,9 +57,9 @@ export default function PieChart({ id, graphData, colorObj, title, height = 400,
     // Select browser-type-pie chart SVG for manipulation
     let svg = d3.select(id);
 
-    let radius = Math.min(width, height) / 2;
+    let radius = Math.min(dimensions.width, dimensions.height) / 2;
     let g = svg.append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        .attr("transform", "translate(" + dimensions.width / 2 + "," + dimensions.height / 2 + ")");
 
     // Define colors
     let color = d3.scaleOrdinal(colors);
@@ -58,7 +84,7 @@ export default function PieChart({ id, graphData, colorObj, title, height = 400,
 
     // Add Title to the graph
     svg.append("g")
-        .attr("transform", "translate(" + (width / 2 - 110) + "," + 25 + ")")
+        .attr("transform", "translate(" + (dimensions.width / 2 - 110) + "," + 25 + ")")
         .append("text")
         .text(title)
         .attr("class", "browser-pie-label");
@@ -66,9 +92,11 @@ export default function PieChart({ id, graphData, colorObj, title, height = 400,
     return (
         <div className="pie-graph-container">
             <div className="pie-graph-content">
-                <svg id={id.substr(1)} height={height} width={width}>
+                <div className="pie-graph-svg-container">
+                    <svg id={id.substr(1)} width={dimensions.width} height={dimensions.height}>
 
-                </svg>
+                    </svg>
+                </div>
                 <div className="legend">
                     {labels}
                 </div>

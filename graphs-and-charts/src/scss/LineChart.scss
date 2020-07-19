@@ -1,0 +1,38 @@
+/*
+    Mobile Styling
+ */
+
+.label {
+  font-weight: bold;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.line-graph-container {
+
+}
+
+
+/*
+    Tablet Styling
+ */
+@media (min-width: 768px) {
+
+  .line-graph-container {
+
+  }
+}
+
+
+/*
+    Desktop Styling
+ */
+@media (min-width: 1024px) {
+
+  .line-graph-container {
+    width: 50vw;
+
+  }
+}

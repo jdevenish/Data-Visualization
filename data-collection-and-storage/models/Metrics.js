@@ -13,7 +13,7 @@ const MetricSchema = new mongoose.Schema({
                 _id: false,
                 time: Number,
                 date: Date,
-                type: String
+                requestType: String
             }
         ]
     },

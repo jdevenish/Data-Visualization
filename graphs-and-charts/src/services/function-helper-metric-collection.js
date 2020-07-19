@@ -1,10 +1,6 @@
 
 export const visitorDataObj = {
-    loadTime: {
-        time: 0,
-        date: "",
-        type: ""
-    },
+    loadTime: "",
     screenWidth: window.screen.width,
     geolocation: "",
     deviceType: ""
@@ -28,8 +24,6 @@ export const browserDetection = async () => {
 };
 
 export const determineLoadTime = async (browser) => {
-
-
     if(browser === 'Safari') {
         let domContentLoadedEventEnd = window.performance.timing.domContentLoadedEventEnd;
         let navigationStart = window.performance.timing.navigationStart;
@@ -37,7 +31,7 @@ export const determineLoadTime = async (browser) => {
         return {
             time: domContentLoadedEventEnd - navigationStart,
             date: Date.now(),
-            type: "unknown"
+            requestType: 'unknown'
         }
 
     } else {

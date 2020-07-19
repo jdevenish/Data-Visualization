@@ -42,6 +42,6 @@ export const determineLoadTime = async () => {
     return {
         time: (domContentLoadedEventEnd - navigationStart),
         date: Date.now(),
-        requestType: perfEntries.type
+        requestType: String(perfEntries.type)
     }
 };

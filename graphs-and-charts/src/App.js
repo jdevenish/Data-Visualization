@@ -25,9 +25,8 @@ function App() {
         visitorData.deviceType = browser;
 
         // Calculate site load time.
-        determineLoadTime().then(loadTime => {
+        determineLoadTime(browser).then(loadTime => {
             visitorData.loadTime = loadTime;
-            console.log(`typeof time = ${typeof loadTime}`)
 
             // Send complete visitor data to server
             sendMetrics(visitorData).then(metrics => {
@@ -37,8 +36,8 @@ function App() {
             }).catch(error => { // end sendMetrics
               console.error(error);
             })
-        }).catch(error => {
-            console.log(error);
+        }).catch(error => { // end determineLoadTime
+            console.error(error);
         })
       }).catch(error => { // end browserDetection
         console.error(error);
@@ -57,7 +56,7 @@ function App() {
         <BrowserType browserTypeData={graphData.browser} />
       </div>
       <div>
-          <DeviceType deviceTypeData={graphData.deviceType} logged={logged}/>
+          <DeviceType deviceTypeData={graphData.deviceType} />
       </div>
       <div>
         <LoadTimes loadTimeData={graphData.loadTimes}/>

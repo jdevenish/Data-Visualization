@@ -27,21 +27,36 @@ export const browserDetection = async () => {
     return deviceType;
 };
 
-export const determineLoadTime = async () => {
-    let perfEntries = performance.getEntriesByType("navigation")[0];
+export const determineLoadTime = async (browser) => {
 
-    // domContentLoadedEventEnd : representing the time value equal to the time
-    // immediately after the current document's DOMContentLoaded event completes.
-    let domContentLoadedEventEnd = perfEntries.domContentLoadedEventEnd;
 
-    // requestStart : representing the time immediately before the user agent
-    // starts requesting the resource from the server, or from relevant
-    // application caches or from local resources.
-    let navigationStart = perfEntries.requestStart;
+    if(browser === 'Safari') {
+        let domContentLoadedEventEnd = window.performance.timing.domContentLoadedEventEnd;
+        let navigationStart = window.performance.timing.navigationStart;
 
-    return {
-        time: (domContentLoadedEventEnd - navigationStart),
-        date: Date.now(),
-        requestType: String(perfEntries.type)
+        return {
+            time: domContentLoadedEventEnd - navigationStart,
+            date: Date.now(),
+            type: "unknown"
+        }
+
+    } else {
+        let perfEntries = performance.getEntriesByType("navigation")[0];
+
+        // domContentLoadedEventEnd : representing the time value equal to the time
+        // immediately after the current document's DOMContentLoaded event completes.
+        let domContentLoadedEventEnd = perfEntries.domContentLoadedEventEnd;
+
+        // requestStart : representing the time immediately before the user agent
+        // starts requesting the resource from the server, or from relevant
+        // application caches or from local resources.
+        let navigationStart = perfEntries.requestStart;
+
+        return {
+            time: (domContentLoadedEventEnd - navigationStart),
+            date: Date.now(),
+            requestType: String(perfEntries.type)
+        }
     }
+
 };

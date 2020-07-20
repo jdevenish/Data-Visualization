@@ -12,16 +12,16 @@ function calcSvgDimensions(width) {
     };
 
     if( width < tablet ) {
-        dimensions.width = 375;
-        dimensions.height = 380;
+        dimensions.width = 400;
+        dimensions.height = 300;
 
     } else if( tablet <= width && width < desktop ) {
-        dimensions.width = 400;
+        dimensions.width = 700;
         dimensions.height = 450;
 
     } else if( width >= desktop ) {
-        dimensions.width = 500;
-        dimensions.height = 550;
+        dimensions.width = 960;
+        dimensions.height = 500;
     }
 
     return dimensions
@@ -29,15 +29,52 @@ function calcSvgDimensions(width) {
 
 export default function LineChart({ id, graphData, colorObj, title = ""}) {
     let dimensions = calcSvgDimensions(window.screen.availWidth);
-
-    // Set incoming data to appropriate variables
-    for(let key in graphData) {
-
+    let rawData = []
+    if(graphData) {
+        rawData = JSON.stringify(graphData.data)
     }
+
+
+    //------------- 1. PREPARATION -------------------------------------------//
+    //---------------- SVG ---------------------------------------------------//
+    const margin = 5;
+    const padding = 5;
+    const adj = 30;
+
+    // we are appending SVG first
+    const svg = d3.select(id)
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "-"
+            + adj + " - "
+            + adj + " "
+            + (dimensions.width + adj * 3) + " "
+            + (dimensions.height + adj * 3))
+        .style("padding", padding)
+        .style("margin", margin)
+        .classed("svg-content", true);
+
+    //---------------- DATA --------------------------------------------------//
+    const timeConv = d3.timeParse("%d-%b-%Y");
+
+    // const dataset = d3.json(graphData.data);
+    //---------------- SCALES ------------------------------------------------//
+    const xScale = d3.scaleTime().range([0,dimensions.width]);
+    const yScale = d3.scaleLinear().rangeRound([dimensions.height, 0]);
+    
+
+    //---------------- AXES --------------------------------------------------//
+    //---------------- LINES -------------------------------------------------//
+    //------------- 2. DRAWING -----------------------------------------------//
+    //---------------- AXES --------------------------------------------------//
+    //---------------- LINES -------------------------------------------------//
 
     return (
         <div className="line-graph-container">
+            <div className="pie-graph-svg-container">
+                <svg id={id.substr(1)} width={dimensions.width} height={dimensions.height}>
 
+                </svg>
+            </div>
         </div>
     );
 }

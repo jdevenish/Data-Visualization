@@ -87,13 +87,65 @@ export default function LineChart({ id, graphData, colorObj, title = ""}) {
                 .x(function(d) { return x(d.date)})
                 .y(function(d) { return y(d.value)}))
 
+        // Create a tooltip
+        let ToolTip = d3.select(id)
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "2px")
+            .style("border-radius", "5px")
+            .style("padding", "5px")
+
+            // Functions that change the tooltip on user hover / move / leave a cell
+            let mouseover = function() {
+                ToolTip.style("opacity", 1)
+                d3.select(this)
+                    .style("stroke", "black")
+                    .style("opacity", 1)
+            };
+
+            let mousemove = function(d) {
+                ToolTip
+                    .html("Exact value: " + d.value)
+                    .style("left", (d3.mouse(this)[0]+70)+"px")
+                    .style("top", (d3.mouse(this)[1]) + "px")
+            };
+
+            let mouseleave = function() {
+                ToolTip
+                    .style("opacity", 0);
+                d3.select(this)
+                    .style("stroke", "none")
+                    .style("opacity", 1)
+            };
+
+        // Add the points
+        svg.append("g")
+            .selectAll("dot")
+            .data(plotableData)
+            .enter()
+            .append("circle")
+                .attr("class", "myCircle")
+                .attr("cx", function(d) { return x(d.date) })
+                .attr("cy", function (d) { return y(d.value) })
+                .attr("r", 8)
+                .attr("stroke", "#69b3a2")
+                .attr("stroke-width", 3)
+                .attr("fill", "transparent")
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
     }
     return (
         <div className="line-graph-container">
-            <div className="pie-graph-svg-container">
-                <svg id={id.substr(1)} width={dimensions.width} height={dimensions.height}>
+            <div className="line-graph-content">
+                <div className="line-graph-svg-container">
+                    <svg id={id.substr(1)} width={dimensions.width} height={dimensions.height}>
 
-                </svg>
+                    </svg>
+                </div>
             </div>
         </div>
     );

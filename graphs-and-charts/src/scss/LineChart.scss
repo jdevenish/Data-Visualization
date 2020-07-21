@@ -1,5 +1,7 @@
 /*
     Mobile Styling
+/*
+    Mobile Styling
  */
 
 .label {
@@ -11,9 +13,33 @@
 }
 
 .line-graph-container {
+  width: 95vw;
+  margin: 0 auto;
 
+  .line-graph-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+
+    .line-graph-svg-container {
+
+      .line-graph-svg {
+        width: 350px;
+        height: 450px;
+      }
+    }
+
+    .legend {
+      text-align: left;
+      align-self: center;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+  }
 }
-
 
 /*
     Tablet Styling
@@ -32,7 +58,7 @@
 @media (min-width: 1024px) {
 
   .line-graph-container {
-    width: 50vw;
+    width: 85vw;
 
   }
 }

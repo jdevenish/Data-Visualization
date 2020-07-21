@@ -14,8 +14,7 @@ export default function LoadTimes({ loadTimeData }) {
             <h1>Load Times Graph</h1>
             <LineChart id = "#load-time-line"
                        graphData={loadTimeData}
-                       colorObj={graphColors}
-                       title = "Site load times" />
+                       colorObj={graphColors} />
         </div>
     );
 }

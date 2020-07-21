@@ -64,6 +64,9 @@ function App() {
       <div>
         <Location locationData={graphData.location}/>
       </div>
+      {/*<div className="spacer">*/}
+
+      {/*</div>*/}
     </div>
   );
 }

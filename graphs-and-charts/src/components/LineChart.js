@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import * as d3 from "d3";
 import '../scss/LineChart.scss'
 
@@ -28,18 +28,13 @@ function calcSvgDimensions(width) {
 }
 
 export default function LineChart({ id, graphData, colorObj, title = ""}) {
-    const [loaded, setLoaded] = useState(false)
     let dimensions = calcSvgDimensions(window.screen.availWidth);
-
 
     //------------- 1. PREPARATION -------------------------------------------//
     //---------------- SVG ---------------------------------------------------//
-    if(graphData && !loaded) {
-        setLoaded(true);
+    if(graphData) {
         // set the dimensions and margins of the graph
-        let margin = {top: 10, right: 30, bottom: 30, left: 60},
-            width = dimensions.width - margin.left - margin.right,
-            height = dimensions.height - margin.top - margin.bottom;
+        let margin = {top: 10, right: 30, bottom: 30, left: 60};
 
         // we are appending SVG first
         let svg = d3.select(id)
@@ -50,7 +45,7 @@ export default function LineChart({ id, graphData, colorObj, title = ""}) {
                     "translate(" + margin.left + "," + margin.top + ")");
 
         let plotableData = graphData.data.map(rawData => {
-            return { date: new Date(rawData.date), value: rawData.time }
+            return { date: new Date(rawData.date), value: rawData.time, requestType: rawData.requestType }
         });
 
         // Add X axis --> it is a date format
@@ -92,14 +87,11 @@ export default function LineChart({ id, graphData, colorObj, title = ""}) {
         // Functions that change the tooltip on user hover / move / leave a cell
         let mouseover = function() {
             ToolTip.style("opacity", 1);
-            // d3.select(this)
-            //     .style("stroke", "black")
-            //     .style("opacity", 1)
         };
 
         let mousemove = function(d) {
             ToolTip
-                .html(`Exact value: ${d.value.toFixed(2)}`)
+                .html(`Exact value: ${d.value.toFixed(2)} Type: ${d.requestType}`)
                 .style("left", (d3.mouse(this)[0]+70) + "px")
                 .style("top", (d3.mouse(this)[1]-750) + "px")
                 .style("background-color", "red")
@@ -108,9 +100,6 @@ export default function LineChart({ id, graphData, colorObj, title = ""}) {
         let mouseleave = function() {
             ToolTip
                 .style("opacity", 0);
-            // d3.select(this)
-            //     .style("stroke", "none")
-            //     .style("opacity", 0.8)
         };
 
         // Add the points

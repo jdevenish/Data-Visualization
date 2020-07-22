@@ -1,3 +1,8 @@
+import axios from 'axios'
+
+const api = axios.create({
+    baseURL: 'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson'
+});
 
 export const visitorDataObj = {
     loadTime: "",
@@ -54,3 +59,8 @@ export const determineLoadTime = async (browser) => {
     }
 
 };
+
+export const getGeoMapData = async() => {
+    const resp = await api.get('')
+    return resp.data
+}

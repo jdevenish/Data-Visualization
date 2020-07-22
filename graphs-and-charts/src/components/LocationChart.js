@@ -1,6 +1,9 @@
 import React from "react";
 import * as d3 from "d3";
-import '../scss/LineChart.scss'
+import * as d4 from "d3-geo-projection"
+import '../scss/LocationChart.scss'
+
+
 
 function calcSvgDimensions(width) {
     let tablet = 768;
@@ -27,19 +30,43 @@ function calcSvgDimensions(width) {
     return dimensions
 }
 
-export default function LocationChart({ id, graphData, colorObj, title = ""}) {
+export default function LocationChart({ id, graphData, colorObj, mapDimensions, title = ""}) {
     let dimensions = calcSvgDimensions(window.screen.availWidth);
 
     //------------- 1. PREPARATION -------------------------------------------//
-    //---------------- SVG ---------------------------------------------------//
     if(graphData) {
+        // The svg
+        let svg = d3.select(id)
+                    .attr("width", dimensions.width)
+                    .attr("height", dimensions.height);
+
+        // Map and projection
+        let projection = d4.geoNaturalEarth()
+            .scale(dimensions.width / 1.3 / Math.PI)
+            .translate([dimensions.width / 2, dimensions.height / 2]);
+
+        // Load external data and boot
+        // d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data){
+            console.log("Completed")
+            // Draw the map
+            svg.append("g")
+                .selectAll("path")
+                .data(mapDimensions)
+                .enter().append("path")
+                .attr("fill", "#69b3a2")
+                .attr("d", d3.geoPath()
+                    .projection(projection)
+                )
+                .style("stroke", "red")
+        // })
 
     }
+
     return (
         <div className="map-graph-container">
             <div className="map-graph-content">
                 <div className="map-graph-svg-container">
-                    <svg id={id.substr(1)}>
+                    <svg id={id.substr(1)} >
 
                     </svg>
                     <div id={id.substr(1)+"tooltip"}>

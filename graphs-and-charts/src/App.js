@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import {browserDetection, determineLoadTime, visitorDataObj} from "./services/function-helper-metric-collection";
+import {browserDetection, determineLoadTime, visitorDataObj, getGeoMapData} from "./services/function-helper-metric-collection";
 import {getLocationData} from "./services/api-helper-geoLocation";
 import {sendMetrics} from "./services/api-helper-send_receive_metrics";
 import BrowserType from "./components/BrowserType";
@@ -11,6 +11,7 @@ import Location from "./components/Location";
 function App() {
   const [logged, setLogged] = useState(false);
   const [graphData, setGraphData] = useState({});
+  const [mapDimensions, setMapDimensions] = useState([])
 
   useEffect( () => {
     // Create visitor object with screen width and load time populated
@@ -47,6 +48,14 @@ function App() {
     })
   }, []);
 
+  useEffect( () => {
+    getGeoMapData().then(mapDimensions => {
+        setMapDimensions(mapDimensions.features)
+    }).catch(error => {
+        console.error(error);
+    })
+  }, [logged])
+
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
@@ -62,7 +71,7 @@ function App() {
         <LoadTimes loadTimeData={graphData.loadTimes}/>
       </div>
       <div>
-        <Location locationData={graphData.location}/>
+        <Location locationData={graphData.location} mapDimensions={mapDimensions}/>
       </div>
       {/*<div className="spacer">*/}
 

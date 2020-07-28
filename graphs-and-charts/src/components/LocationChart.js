@@ -57,7 +57,7 @@ export default function LocationChart({ id, graphData, colorObj, mapDimensions, 
                 .attr("d", d3.geoPath()
                     .projection(projection)
                 )
-                .style("stroke", "red")
+                .style("stroke", "white")
         // })
 
     }
